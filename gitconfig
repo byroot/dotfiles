@@ -1,0 +1,30 @@
+[user]
+	name = Jean Boussier
+	email = jean.boussier@gmail.com
+[push]
+	default = current
+[color]
+	branch = true
+	diff = true
+	ui = true
+	status = true
+[alias]
+	st = status
+	smup = submodule update --init
+	co = checkout
+	pr = pull --rebase
+	pp = !git pr && git push
+	dh = diff HEAD
+	squash = !/usr/local/bin/git-squash HEAD~1 HEAD
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	rmbranch = push origin :"$1"
+	wip = !git add . && git commit -m 'WIP'
+[core]
+	pager = less -x4
+	excludesfile = ~/.gitignore
+[help]
+	autocorrect = 10
+[rerere]
+	enabled = true
+[branch]
+	autosetuprebase = always
