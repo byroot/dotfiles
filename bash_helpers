@@ -1,0 +1,166 @@
+load_virtual_env() {
+  export WORKON_HOME=$HOME'/.virtualenvs'
+  source /usr/local/bin/virtualenvwrapper.sh
+}
+
+start_redis() {
+    sudo redis-server /usr/local/etc/redis.conf
+}
+
+start_mongo() {
+    sudo mongod run --config /usr/local/Cellar/mongodb/1.6.5-x86_64/mongod.conf
+}
+
+dpager_on() {
+  sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.dynamic_pager.plist
+}
+
+dpager_off() {
+  sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.dynamic_pager.plist
+}
+
+set_proxy() {
+  proxy=$1
+  port=$2
+  [ ! $# -ge 1 ] && port='3128'
+  export http_proxy="http://$proxy:$port"
+  networksetup -setwebproxy "Ethernet" $proxy $port
+  networksetup -setwebproxystate "Ethernet" on
+  networksetup -setwebproxy "AirPort" $proxy $port
+  networksetup -setwebproxystate "AirPort" on
+  networksetup -setsecurewebproxy "Ethernet" $proxy $port
+  networksetup -setsecurewebproxystate "Ethernet" on
+  networksetup -setsecurewebproxy "AirPort" $proxy $port
+  networksetup -setsecurewebproxystate "AirPort" on
+  git config --global http.proxy $http_proxy
+}
+
+unset_proxy() {
+  unset http_proxy
+  networksetup -setwebproxystate 'Ethernet' off
+  networksetup -setwebproxystate 'AirPort' off
+  networksetup -setsecurewebproxystate 'Ethernet' off
+  networksetup -setsecurewebproxystate 'AirPort' off
+  git config --global --unset http.proxy
+}
+
+goto() {
+    [[ $# -eq 1 ]] || return 1
+    local dir=$(eval "grep -e '^$1:' ~/.locations | sed -e 's/$1: //'")
+    dir=${dir:-path_that_does_not_exist}
+    if [[ ${dir:0:1} != '/' ]] ; then
+        dir="/Users/$USER/$dir"
+    fi
+    if [[ -d $dir ]] ; then
+        cd $dir
+    else
+        echo "destination not found !"
+        return 1
+    fi
+}
+
+gopen() {
+  goto $1 || return 1
+  if [[ -f "$1.tmproj" ]] ; then
+    open "$1.tmproj"
+  else
+    mate .
+  fi
+}
+
+_MATE_BIN=/Applications/TextMate.app/Contents/Resources/mate #$(which mate)
+
+mate(){
+  path=$(echo $1 | cut -d":" -f1)
+  line=$(echo $1 | cut -d":" -f2)
+  echo mate $path
+  if [[ -z "$line" ]] ; then
+    if [[ -d $path ]] ; then
+      shopt -s extglob  # Enable extended globbing
+      # /Applications/TextMate.app/Contents/Resources/mate !(@(cache|log|tmp)) $path
+      shopt -u extglob  # Disable extended globbing
+    else
+      $_MATE_BIN $path
+    fi
+  else
+    $_MATE_BIN $path -l $line
+  fi
+}
+
+pylint() {
+  rc="$HOME/.pylintrc"
+  if [ -e .pylintrc ] ; then
+    rc='.pylintrc'
+  fi
+  /usr/local/share/python/pylint --rcfile=$rc $@
+}
+
+git-squash() {
+  # Go back to the last commit that we want to form the initial commit (detach HEAD)
+  branch=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+  tag="tmp-$RANDOM"
+
+  git checkout HEAD
+
+  # reset the branch pointer to the initial commit,
+  # but leaving the index and working tree intact.
+  git reset --soft HEAD~1
+
+  # amend the initial tree using the tree from 'B'
+  git commit --amend
+
+  # temporarily tag this new initial commit
+  # (or you could remember the new commit sha1 manually)
+  git tag $tag
+
+  # go back to the original branch
+  git checkout $branch
+
+  # Replay all the commits after B onto the new initial commit
+  git rebase --onto $tag HEAD
+
+  # remove the temporary tag
+  git tag -d $tag
+}
+
+pngopt() {
+  mv "$1" "$1.bak.png"
+  pngcrush "$1.bak.png" "$1"
+  rm "$1.bak.png"
+}
+
+convjs2coffee() {
+  path=`echo $1 | sed -e 's/.js$//'`
+  js2coffee "$path.js" > "$path.coffee"
+  git rm -f "$path.js"
+}
+
+
+CHROME_BIN_DIR="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS"
+CHROME_BIN_BAK="$CHROME_BIN_DIR/chrome.bin"
+CHROME_BIN="$CHROME_BIN_DIR/Google\ Chrome\ Canary"
+
+is_chrome_tweeked() {
+  /usr/bin/file -b "$CHROME_BIN" | grep -q ASCII || /usr/bin/file -b "$CHROME_BIN" | grep -q shell
+}
+
+tweek_chrome() {
+  if is_chrome_tweaked ; then
+    echo "Chrome already tweeked"
+    return 1
+  fi
+  sudo mv "$CHROME_BIN" "$CHROME_BIN_BAK"
+  sudo cat << EOF > "$CHROME_BIN"
+#!/bin/bash
+"$CHROME_BIN_BAK" --disable-web-security --disable-extensions-http-throttling
+EOF
+  sudo chmod +x "$CHROME_BIN"
+}
+
+restore_chrome() {
+  if ! is_chrome_tweaked ; then
+    echo "Chrome not tweeked"
+    return 1
+  fi
+  sudo mv "$CHROME_BIN_BAK" "$CHROME_BIN"
+}

@@ -1,0 +1,24 @@
+if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
+  . `brew --prefix`/etc/bash_completion.d/git-completion.bash
+fi
+
+if [ -f `brew --repository`/Library/Contributions/brew_bash_completion.sh ]; then
+  . `brew --repository`/Library/Contributions/brew_bash_completion.sh
+fi
+
+if [ -x "`which command_completion_for_rake`" ]; then
+    complete -C "`which command_completion_for_rake`" -o default rake
+fi
+
+if [ -x "`which complete_bundle_bash_command`" ]; then
+  eval `complete_bundle_bash_command init`
+fi
+
+_play() {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=( $(compgen -W "$(ls | grep '\.\(avi\|mkv\|mp4\)$')" -- "$cur") )
+    return 0
+}
+
+alias play=open
+complete -F _play play
