@@ -10,8 +10,8 @@ export HISTIGNORE="&:[ ]*"
 export EDITOR='nano'
 export BUNDLER_EDITOR='mate'
 
-export GEM_PRIVATE_KEY='~/.ssh/gem-private_key.pem'
-export GEM_CERTIFICATE_CHAIN='~/.ssh/gem-public_cert.pem'
+[[ -f ~/.ssh/gem-private_key.pem ]] && export GEM_PRIVATE_KEY='~/.ssh/gem-private_key.pem'
+[[ -f ~/.ssh/gem-public_cert.pem ]] && export GEM_CERTIFICATE_CHAIN='~/.ssh/gem-public_cert.pem'
 
 [[ -s ~/.rvm/scripts/rvm ]] && . ~/.rvm/scripts/rvm
 
