@@ -18,6 +18,7 @@ export GEM_CERTIFICATE_CHAIN='~/.ssh/gem-public_cert.pem'
 [[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
 [[ -f ~/.bash_helpers ]] && . ~/.bash_helpers
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+[[ -f ~/.bash_local ]] && . ~/.bash_local
 
 # Debian
 if [ -f /etc/bash_completion ]; then
