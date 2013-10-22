@@ -16,9 +16,10 @@ fi
 
 _play() {
     local cur=${COMP_WORDS[COMP_CWORD]}
-    COMPREPLY=( $(compgen -W "$(ls | grep '\.\(avi\|mkv\|mp4\)$')" -- "$cur") )
+    COMPREPLY=( $(compgen -f -X '!*.@(avi|mkv|mp4|ogg|flv)' -- "$cur") $( compgen -d -- "$cur" ) )
     return 0
 }
 
 alias play=open
-complete -F _play play
+
+complete -o filenames -F _play play
