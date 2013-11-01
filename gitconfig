@@ -15,7 +15,7 @@
 	pr = pull --rebase
 	pp = !git pr && git push
 	dh = diff HEAD
-	squash = !/usr/local/bin/git-squash HEAD~1 HEAD
+	squash = commit --amend -C HEAD
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	rmbranch = push origin :"$1"
 	wip = !git add . && git commit -m 'WIP'
