@@ -1,9 +1,12 @@
-if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
-  . `brew --prefix`/etc/bash_completion.d/git-completion.bash
+PREFIX=`brew --prefix 2> /dev/null`
+REPO=`brew --repository 2> /dev/null`
+
+if [ -f $PREFIX/etc/bash_completion.d/git-completion.bash ]; then
+  . $PREFIX/etc/bash_completion.d/git-completion.bash
 fi
 
-if [ -f `brew --repository`/Library/Contributions/brew_bash_completion.sh ]; then
-  . `brew --repository`/Library/Contributions/brew_bash_completion.sh
+if [ -f $REPO/Library/Contributions/brew_bash_completion.sh ]; then
+  . $REPO/Library/Contributions/brew_bash_completion.sh
 fi
 
 if [ -x "`which command_completion_for_rake`" ]; then

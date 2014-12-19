@@ -20,16 +20,10 @@ export BUNDLER_EDITOR='mate'
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 [[ -f ~/.bash_local ]] && . ~/.bash_local
 
-# Debian
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
+PREFIX=`brew --prefix 2> /dev/null`
+if [ -f $PREFIX/etc/bash_completion ]; then
+    . $PREFIX/etc/bash_completion
 fi
-
-# OSX
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-  . `brew --prefix`/etc/bash_completion
-fi
-
 
 # Default OSX .bash_profile
 if [ "$TERM_PROGRAM" == "Apple_Terminal" ] && [ -z "$INSIDE_EMACS" ]; then
