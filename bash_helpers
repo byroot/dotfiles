@@ -1,3 +1,11 @@
+git-current-branch() {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+git-set-upstream() {
+  git branch --set-upstream-to=origin/$(git current-branch) $(git current-branch)
+}
+
 load_virtual_env() {
   export WORKON_HOME=$HOME'/.virtualenvs'
   source /usr/local/bin/virtualenvwrapper.sh

@@ -9,8 +9,4 @@ CYAN="\[\033[1;36m\]"
 GREY="\[\033[0;37m\]"
 NORM="\[\033[0m\]"
 
-function get_branch() {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-}
-
-PS1="$YELOW\u$GREY@$LRED\h$GREY:$LBLUE\W$GREY:$LYELOW\$(get_branch)$LRED$ $NORM"
+PS1="$YELOW\u$GREY@$LRED\h$GREY:$LBLUE\W$GREY:$LYELOW\$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')$LRED$ $NORM"

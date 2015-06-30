@@ -4,7 +4,7 @@ shopt -s globstar 2> /dev/null # Bash 4 only
 PROMPT_COMMAND='history -a' 
 
 export ARCHFLAGS='-arch x86_64'
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/local/share/python:/usr/local/share/npm/bin/:$PATH:$HOME/.rvm/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/local/share/python:/usr/local/share/npm/bin/:$PATH:$HOME/.rvm/bin:$HOME/.githelpers"
 
 export HISTIGNORE="&:[ ]*"
 export EDITOR='nano'

@@ -1,3 +1,4 @@
+#!/bin/bash
 PREFIX=`brew --prefix 2> /dev/null`
 REPO=`brew --repository 2> /dev/null`
 
