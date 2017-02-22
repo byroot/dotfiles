@@ -18,7 +18,6 @@ export BUNDLER_EDITOR='mate'
 [[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
 [[ -f ~/.bash_helpers ]] && . ~/.bash_helpers
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
-[[ -f ~/.bash_local ]] && . ~/.bash_local
 
 PREFIX=`brew --prefix 2> /dev/null`
 if [ -f $PREFIX/etc/bash_completion ]; then
@@ -38,3 +37,5 @@ if [ "$TERM_PROGRAM" == "Apple_Terminal" ] && [ -z "$INSIDE_EMACS" ]; then
     }
     PROMPT_COMMAND="update_terminal_cwd; $PROMPT_COMMAND"
 fi
+
+[[ -f ~/.bash_local ]] && . ~/.bash_local
