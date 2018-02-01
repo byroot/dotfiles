@@ -88,10 +88,10 @@ mate(){
       # /Applications/TextMate.app/Contents/Resources/mate !(@(cache|log|tmp)) $path
       shopt -u extglob  # Disable extended globbing
     else
-      $_MATE_BIN $path
+      $_MATE_BIN $path 2> /dev/null
     fi
   else
-    $_MATE_BIN $path -l $line
+    $_MATE_BIN $path -l $line 2> /dev/null
   fi
 }
 
