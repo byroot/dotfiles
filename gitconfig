@@ -20,6 +20,7 @@
 	rmbranch = push origin :"$1"
 	wip = !git add . && git commit -m 'WIP'
 	rbm = !git fetch origin master && git rebase origin/master
+	pm = !git checkout master && git fetch origin master && git reset --hard origin/master
 	head = rev-parse HEAD
 [core]
 	pager = less -x4
