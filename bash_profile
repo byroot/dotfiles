@@ -3,6 +3,9 @@ shopt -s histappend
 shopt -s globstar 2> /dev/null # Bash 4 only
 PROMPT_COMMAND='history -a' 
 
+# Moraje fix
+export LIBCLANG_SYSTEM_INCLUDE_DIR="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
+
 export ARCHFLAGS='-arch x86_64'
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/local/share/python:/usr/local/share/npm/bin/:$PATH:$HOME/.rvm/bin:$HOME/.githelpers"
 
