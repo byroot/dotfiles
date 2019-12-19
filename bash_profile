@@ -11,7 +11,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/local/share/python:/usr/local/s
 
 export HISTIGNORE="&:[ ]*"
 export EDITOR='nano'
-export BUNDLER_EDITOR='code -g'
+export BUNDLER_EDITOR='mate'
 
 [[ -f ~/.ssh/gem-private_key.pem ]] && export GEM_PRIVATE_KEY='~/.ssh/gem-private_key.pem'
 [[ -f ~/.ssh/gem-public_cert.pem ]] && export GEM_CERTIFICATE_CHAIN='~/.ssh/gem-public_cert.pem'

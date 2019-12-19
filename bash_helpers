@@ -76,8 +76,23 @@ gopen() {
   fi
 }
 
+_MATE_BIN=/Applications/TextMate.app/Contents/Resources/mate #$(which mate)
+
 mate(){
-  code -g "$@"
+  path=$(echo $1 | cut -d":" -f1)
+  line=$(echo $1 | cut -d":" -f2)
+  echo mate $path
+  if [[ -z "$line" ]] ; then
+    if [[ -d $path ]] ; then
+      shopt -s extglob  # Enable extended globbing
+      # /Applications/TextMate.app/Contents/Resources/mate !(@(cache|log|tmp)) $path
+      shopt -u extglob  # Disable extended globbing
+    else
+      $_MATE_BIN $path 2> /dev/null
+    fi
+  else
+    $_MATE_BIN $path -l $line 2> /dev/null
+  fi
 }
 
 pylint() {
