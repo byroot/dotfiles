@@ -19,8 +19,8 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	rmbranch = push origin :"$1"
 	wip = !git add . && git commit -m 'WIP'
-	rbm = !git fetch origin $(git default-branch) && git rebase origin/$(git default-branch)
-	pm = !git checkout $(git default-branch) && git fetch origin $(git default-branch) && git reset --hard origin/$(git default-branch)
+	rbm = !git fetch $(git default-remote) $(git default-branch) && git rebase $(git default-remote)/$(git default-branch)
+	pm = !git checkout $(git default-branch) && git fetch $(git default-remote) $(git default-branch) && git reset --hard $(git default-remote)/$(git default-branch)
 	head = rev-parse HEAD
 	recent = branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"
 	default-branch = "!default_branch() { \
@@ -31,6 +31,14 @@
 		fi; \
 	}; \
 	default_branch"
+	default-remote = "!default_remote() { \
+		if git remote | grep upstream > /dev/null 2>&1; then \
+			echo upstream; \
+		else \
+			echo origin; \
+		fi; \
+	}; \
+	default_remote"
 [core]
 	pager = less -x4
 	excludesfile = ~/.gitignore
