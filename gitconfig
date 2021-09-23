@@ -19,9 +19,18 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	rmbranch = push origin :"$1"
 	wip = !git add . && git commit -m 'WIP'
-	rbm = !git fetch origin master && git rebase origin/master
-	pm = !git checkout master && git fetch origin master && git reset --hard origin/master
+	rbm = !git fetch origin $(git default-branch) && git rebase origin/$(git default-branch)
+	pm = !git checkout $(git default-branch) && git fetch origin $(git default-branch) && git reset --hard origin/$(git default-branch)
 	head = rev-parse HEAD
+	recent = branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"
+	default-branch = "!default_branch() { \
+		if git rev-parse --verify main > /dev/null 2>&1; then \
+			echo main; \
+		else \
+			echo master; \
+		fi; \
+	}; \
+	default_branch"
 [core]
 	pager = less -x4
 	excludesfile = ~/.gitignore
