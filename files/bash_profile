@@ -13,6 +13,9 @@ export HISTIGNORE="&:[ ]*"
 export EDITOR='nano'
 export BUNDLER_EDITOR='mate'
 
+export LANG=en_US.utf-8
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 [[ -f ~/.ssh/gem-private_key.pem ]] && export GEM_PRIVATE_KEY='~/.ssh/gem-private_key.pem'
 [[ -f ~/.ssh/gem-public_cert.pem ]] && export GEM_CERTIFICATE_CHAIN='~/.ssh/gem-public_cert.pem'
 
