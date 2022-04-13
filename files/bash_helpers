@@ -2,7 +2,7 @@ git-current-branch() {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
-_MATE_BIN=/Applications/TextMate.app/Contents/Resources/mate #$(which mate)
+_MATE_BIN=/Applications/TextMate.app/Contents/MacOS/mate #$(which mate)
 
 mate(){
   path=$(echo $1 | cut -d":" -f1)
