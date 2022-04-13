@@ -19,8 +19,6 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 [[ -f ~/.ssh/gem-private_key.pem ]] && export GEM_PRIVATE_KEY='~/.ssh/gem-private_key.pem'
 [[ -f ~/.ssh/gem-public_cert.pem ]] && export GEM_CERTIFICATE_CHAIN='~/.ssh/gem-public_cert.pem'
 
-[[ -s ~/.rvm/scripts/rvm ]] && . ~/.rvm/scripts/rvm
-
 [[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
 [[ -f ~/.bash_helpers ]] && . ~/.bash_helpers
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
