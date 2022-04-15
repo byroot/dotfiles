@@ -10,6 +10,7 @@ export ARCHFLAGS='-arch x86_64'
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/local/share/python:/usr/local/share/npm/bin/:$PATH:$HOME/.rvm/bin:$HOME/.githelpers"
 
 export HISTIGNORE="&:[ ]*"
+export HISTSIZE=50000
 export EDITOR='nano'
 export BUNDLER_EDITOR='mate'
 
