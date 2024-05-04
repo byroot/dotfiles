@@ -6,13 +6,13 @@ PROMPT_COMMAND='history -a'
 # Moraje fix
 export LIBCLANG_SYSTEM_INCLUDE_DIR="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
 
-export ARCHFLAGS='-arch x86_64'
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/local/share/python:/usr/local/share/npm/bin/:$PATH:$HOME/.rvm/bin:$HOME/.githelpers"
 
 export HISTIGNORE="&:[ ]*"
 export HISTSIZE=50000
 export EDITOR='nano'
 export BUNDLER_EDITOR='mate'
+export GEM_EDITOR='mate'
 
 export LANG=en_US.utf-8
 export BASH_SILENCE_DEPRECATION_WARNING=1
