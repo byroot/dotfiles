@@ -23,8 +23,8 @@
 	pm = !git checkout $(git default-branch) && git fetch $(git default-remote) $(git default-branch) && git reset --hard $(git default-remote)/$(git default-branch)
 	head = rev-parse HEAD
 	recent = !git branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\" | head -n 20
-	fc = "!git fetch \"$1\" \"$2\" && git checkout \"$2\" #"
-	fco = "!git fetch origin \"$1\" && git checkout \"$1\" #"
+	fc = "!git fetch \"$1\" \"$2\":\"$2\" && git checkout \"$2\" #"
+	fco = "!git fetch origin \"$1\":\"$1\" && git checkout \"$1\" #"
 	default-branch = "!default_branch() { \
 		if git rev-parse --verify main > /dev/null 2>&1; then \
 			echo main; \
